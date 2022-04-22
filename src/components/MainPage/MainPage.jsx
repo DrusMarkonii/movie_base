@@ -4,7 +4,7 @@ import Header from "../Header/Header";
 
 function MainPage() {
   return (
-    <div className="MainPage">
+    <div className="mainPage">
     <Header />
       MainPage
       <Link to={"/film/123123313"}>Film</Link>

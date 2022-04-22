@@ -2,7 +2,7 @@ import './FavoritesPage.scss'
 
 
 function FavoritesPage() {
-  return <div className="FavoritesPage">FavoritesPage</div>;
+  return <div className="favoritesPage">FavoritesPage</div>;
 }
 
 export default FavoritesPage;

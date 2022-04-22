@@ -2,7 +2,7 @@ import './FilmPage.scss'
 
 
 function FilmPage() {
-  return <div className="FilmPage">FilmPage</div>;
+  return <div className="filmPage">FilmPage</div>;
 }
 
 export default FilmPage;

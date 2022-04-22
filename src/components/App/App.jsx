@@ -2,7 +2,6 @@ import MainPage from "../MainPage/MainPage";
 import {
   BrowserRouter as Router,
   Route,
-  BrowserRouter,
   Routes,
 } from "react-router-dom";
 import "./App.scss";

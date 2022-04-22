@@ -1,0 +1,39 @@
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 6vh;
+    align-items: center;
+    background-color: black;
+    padding: 5px;
+    align-items: center;
+  }
+  
+  .navbar_List {
+    display: flex;
+    width: 90%;
+    height: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    height: 5vh;
+    align-items: baseline;
+    justify-content:center;
+    list-style: none;
+  }
+  
+  .navbar__list__item {
+    height: 100%;
+    margin: 0 50px;
+  }
+  
+  .navbar__list__item a {
+    color: rgb(187, 184, 184);
+    font-size: large;
+    text-decoration: none;
+  }
+  
+  .navbar__list__item a.active {
+    width: 100px;
+    color: rgb(236, 52, 52);
+  }
