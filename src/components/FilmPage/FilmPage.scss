@@ -1,0 +1,38 @@
+.filmPage {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1280px;
+    width: 100%;
+    justify-content: center;
+}
+
+.filmPage_img {
+    width: 300px;
+    border-radius: 5px;
+    margin-top: 70px;
+}
+.filmTitle {
+    display: block;
+    font-size: 1.5em;
+    margin-top: 0.83em;
+    margin-bottom: 0.83em;
+    font-weight: bold;
+}
+.filmOfDescriptionBox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+}
+
+.descriptionBox {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin-left: 20px;
+}
+.recommendedBox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

@@ -32,7 +32,7 @@ function MainPage() {
     <div className="mainPage">
       <Header />
       {films !== null ? (
-        <div className="filmBox">
+        <div className="filmsBox">
           {films.results.map(
             ({
               id,
