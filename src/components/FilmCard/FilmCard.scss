@@ -1,0 +1,52 @@
+.filmCard {
+    width: 180px;
+    height: 271px;
+    padding: 2px;
+    margin: 10px;
+    justify-content: center;
+    border-radius: 6px;
+    background-color: rgba(27, 26, 26, 0.658);
+    color: rgb(163, 163, 162);
+}
+
+.description_box {
+    display: flex;
+    border-radius: 0 0 5px 5px;
+    flex-direction: column;
+    font-size: medium;
+    height: 200px;
+    position: relative;
+    bottom: 205px;
+    opacity: 0
+}
+
+.card_img {
+    width:100%;
+    border-radius: 6px;	
+    background-size: cover
+}
+
+.description_box:hover {
+    transition: .7s;
+    background-color: #000;
+    opacity: .8;
+}
+
+.genreBox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.genreBox_item {
+    margin: 0 5px;
+}
+
+.description_title {
+    display: block;
+    font-size: 1.17em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}

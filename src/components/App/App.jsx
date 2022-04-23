@@ -1,17 +1,15 @@
 import MainPage from "../MainPage/MainPage";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.scss";
 import FavoritesPage from "../FavoritesPage/FavoritesPage";
 import Header from "../Header/Header";
 import FilmPage from "../FilmPage/FilmPage";
+import { Provider } from "react-redux";
+import store from "../../store/reducers/rootReducer";
 
 function App() {
   return (
-    <>
+    <Provider store={store}>
       <Router>
         <Routes>
           <Route path="/" element={<Header />} />
@@ -20,7 +18,7 @@ function App() {
           <Route path="/film/:id" element={<FilmPage />} />
         </Routes>
       </Router>
-    </>
+    </Provider>
   );
 }
 

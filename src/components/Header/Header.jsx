@@ -1,8 +1,8 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import Search from "../Search/Search";
+import { NavLink} from "react-router-dom";
+
 import "./Header.scss";
 
-// const navigate = useNavigate();
+
 const navigation = [
   { id: 1, title: "Films", path: "/" },
   { id: 2, title: "Favorites", path: "/favorites" },
@@ -19,7 +19,6 @@ function Header() {
             </li>
     
           ))}
-          <li className="navbar__list__item"><Search /></li>
         </ul>
       </nav>
     </div>

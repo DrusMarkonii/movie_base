@@ -1,8 +1,13 @@
-import './FavoritesPage.scss'
-
+import "./FavoritesPage.scss";
+import Header from "../Header/Header";
 
 function FavoritesPage() {
-  return <div className="favoritesPage">FavoritesPage</div>;
+  return (
+    <div className="favoritesPage">
+      <Header />
+      FavoritesPage
+    </div>
+  );
 }
 
 export default FavoritesPage;
