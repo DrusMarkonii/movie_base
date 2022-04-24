@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_KEY = "cec84349983050a0e6e65380ebeca52a";
+export const API_KEY = "cec84349983050a0e6e65380ebeca52a";
 export const IMAGE_API_PATH = "https://image.tmdb.org/t/p/original";
 const GENRE_LIST = "https://api.themoviedb.org/3/genre/movie/list";
 const POPULAR_FILMS = "https://api.themoviedb.org/3/movie/popular";
@@ -15,13 +15,14 @@ export const getPopularFilms = async () => {
       },
       params: {
         api_key: API_KEY,
-      },
+      }, 
     });
     return response.data;
   } catch (err) {
     console.log(err);
   }
 };
+
 
 export const getGenres = async () => {
   try {

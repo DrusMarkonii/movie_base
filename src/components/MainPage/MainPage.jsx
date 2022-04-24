@@ -1,39 +1,76 @@
+import { useEffect, useState } from "react";
+import { API_KEY } from "../../service/endpoints";
 import { Link } from "react-router-dom";
 import "./MainPage.scss";
 import Header from "../Header/Header";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
-  addFavoriteFilmAction,
   fetchGenres,
   fetchPopularFilms,
+  addScrollLoadedFilmsAction,
 } from "../../store/action-creators/filmsActions";
 
-import { useEffect } from "react";
 import FilmCard from "../FilmCard/FilmCard";
+import axios from "axios";
 
 function MainPage() {
-  const dispatch = useDispatch();
-  const filmsData = useSelector((state) => {
-    return state.films;
-  });
+  const [filmsList, setFilmsList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [fetching, setFetching] = useState(true);
+  const [totalPage, setTotalPage] = useState(0)
 
-  const { films, genres } = filmsData;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchPopularFilms());
     dispatch(fetchGenres());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (fetching) {
+      axios
+        .get(
+          `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`
+        )
+        .then((response) => {
+          setFilmsList([...filmsList, ...response.data.results]);
+          dispatch(addScrollLoadedFilmsAction(response.data));
+          setCurrentPage((currentPage) => currentPage + 1);
+          setTotalPage(response.data.total_pages)
+        })
+        .finally(() => setFetching(false));
+    }
+  }, [fetching]);
 
-  // console.log(films, genres);
+  useEffect(() => {
+    if (filmsList) {
+      document.addEventListener("scroll", scrollHandler);
+    }
+
+    return function () {
+      document.removeEventListener("scroll", scrollHandler);
+    };
+  }, []);
+
+ 
+
+  const scrollHandler = (e) => {
+    if (
+      e.target.documentElement.scrollHeight -
+        (e.target.documentElement.scrollTop + window.innerHeight) <
+      100 && currentPage > totalPage
+    ) {
+      setFetching(true);
+    }
+  };
 
   return (
     <div className="mainPage">
       <Header />
-      {films !== null ? (
+      {filmsList ? (
         <div className="filmsBox">
-          {films.results.map(
+          {filmsList.map(
             ({
               id,
               original_title,

@@ -3,7 +3,8 @@ import {
   ADD_IN_FAVORITE_FILM,
   ADD_POPULAR_FILMS,
   FETCH_POPULAR_FILMS,
-  FETCH_GENRES
+  FETCH_GENRES,
+  ADD_SCROLL_LOADED_FILMS,
 } from "./filmsTypes";
 
 export const addFavoriteFilmAction = (payload) => ({
@@ -18,6 +19,11 @@ export const addGenresAction = (payload) => ({
 
 export const addPopularFilms = (payload) => ({
   type: ADD_POPULAR_FILMS,
+  payload,
+});
+
+export const addScrollLoadedFilmsAction = (payload) => ({
+  type: ADD_SCROLL_LOADED_FILMS,
   payload,
 });
 export const fetchPopularFilms = () => ({ type: FETCH_POPULAR_FILMS });

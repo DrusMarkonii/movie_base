@@ -17,7 +17,7 @@ function FilmPage() {
   const filmOfDescription = async (id) => {
     const film = await getFilmOfDescription(id);
     setFilm(film);
-  };
+  };  
 
   const recommendedFilms = async (id) => {
     const recommended = await getRecommendedFilms(id);
