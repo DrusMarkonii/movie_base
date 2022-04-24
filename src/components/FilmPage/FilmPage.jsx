@@ -17,7 +17,7 @@ function FilmPage() {
   const filmOfDescription = async (id) => {
     const film = await getFilmOfDescription(id);
     setFilm(film);
-  };  
+  };
 
   const recommendedFilms = async (id) => {
     const recommended = await getRecommendedFilms(id);
@@ -65,28 +65,36 @@ function FilmPage() {
             </div>
           </div>
           <div className="recommendedBox">
-            {recommended.results.map(
-              ({
-                id,
-                original_title,
-                overview,
-                poster_path,
-                original_language,
-                vote_average,
-                genre_ids,
-              }) => (
-                <Link key={id} to={`/film/${id}`} className="card_link" onClick={() => setIdOfFilm(id)}>
-                  <FilmCard
-                    original_title={original_title}
-                    overview={overview}
-                    poster_path={poster_path}
-                    original_language={original_language}
-                    vote_average={vote_average}
-                    genre_ids={genre_ids}
-                  />
-                </Link>
-              )
-            )}
+            <p>Recommendations:</p>
+            <div className="recommendedBox_list">
+              {recommended.results.map(
+                ({
+                  id,
+                  original_title,
+                  overview,
+                  poster_path,
+                  original_language,
+                  vote_average,
+                  genre_ids,
+                }) => (
+                  <Link
+                    key={id}
+                    to={`/film/${id}`}
+                    className="card_link"
+                    onClick={() => setIdOfFilm(id)}
+                  >
+                    <FilmCard
+                      original_title={original_title}
+                      overview={overview}
+                      poster_path={poster_path}
+                      original_language={original_language}
+                      vote_average={vote_average}
+                      genre_ids={genre_ids}
+                    />
+                  </Link>
+                )
+              )}
+            </div>
           </div>
         </>
       ) : (

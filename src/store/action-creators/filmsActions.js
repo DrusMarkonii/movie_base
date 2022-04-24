@@ -22,9 +22,6 @@ export const addPopularFilms = (payload) => ({
   payload,
 });
 
-export const addScrollLoadedFilmsAction = (payload) => ({
-  type: ADD_SCROLL_LOADED_FILMS,
-  payload,
-});
+
 export const fetchPopularFilms = () => ({ type: FETCH_POPULAR_FILMS });
 export const fetchGenres = () => ({ type: FETCH_GENRES });

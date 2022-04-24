@@ -1,6 +1,6 @@
 .filmCard {
     width: 180px;
-    height: 271px;
+    height: 290px;
     padding: 2px;
     margin: 10px;
     justify-content: center;
@@ -49,4 +49,14 @@
     margin-left: 0;
     margin-right: 0;
     font-weight: bold;
+    
+}
+.card_link {
+    text-decoration: none;
+    color: white
+}
+
+.add_img, .added_img {
+    width: 25px;
+    cursor: pointer
 }

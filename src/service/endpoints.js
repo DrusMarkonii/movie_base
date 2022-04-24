@@ -5,7 +5,6 @@ export const IMAGE_API_PATH = "https://image.tmdb.org/t/p/original";
 const GENRE_LIST = "https://api.themoviedb.org/3/genre/movie/list";
 const POPULAR_FILMS = "https://api.themoviedb.org/3/movie/popular";
 const DESCRIPTION_OF_FILM = "https://api.themoviedb.org/3/movie";
-const RECOMMENDED_FILMS = "https://api.themoviedb.org/3/movie";
 
 export const getPopularFilms = async () => {
   try {

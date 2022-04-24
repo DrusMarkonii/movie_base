@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { API_KEY } from "../../service/endpoints";
-import { Link } from "react-router-dom";
+
 import "./MainPage.scss";
 import Header from "../Header/Header";
 
 import { useDispatch } from "react-redux";
 import {
   fetchGenres,
-  fetchPopularFilms,
-  addScrollLoadedFilmsAction,
+  addPopularFilms,
 } from "../../store/action-creators/filmsActions";
 
 import FilmCard from "../FilmCard/FilmCard";
@@ -18,14 +17,48 @@ function MainPage() {
   const [filmsList, setFilmsList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [fetching, setFetching] = useState(true);
-  const [totalPage, setTotalPage] = useState(0)
+  const [totalPage, setTotalPage] = useState(0);
+  const [inputValue, setInputValue] = useState("");
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchPopularFilms());
+    // dispatch(fetchPopularFilms());
     dispatch(fetchGenres());
   }, [dispatch]);
+
+
+  const search = async (string) => {
+    if (string) {
+      await axios
+        .get(
+          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${string}&page=1&include_adult=false`
+        )
+        .then((response) => {
+          setFilmsList(() => [...response.data.results]);
+          dispatch(addPopularFilms(response.data));
+          setCurrentPage((currentPage) => currentPage + 1);
+          setTotalPage(response.data.total_pages);
+        })
+        .finally(() => setFetching(false));
+    } else {
+      axios
+        .get(
+          `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`
+        )
+        .then((response) => {
+          setFilmsList(() => [...response.data.results]);
+          dispatch(addPopularFilms(response.data));
+          setCurrentPage((currentPage) => currentPage + 1);
+          setTotalPage(response.data.total_pages);
+        })
+        .finally(() => setFetching(false));
+    }
+  };
+
+  useEffect(() => {
+    search(inputValue);
+  }, [inputValue]);
 
   useEffect(() => {
     if (fetching) {
@@ -34,10 +67,10 @@ function MainPage() {
           `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`
         )
         .then((response) => {
-          setFilmsList([...filmsList, ...response.data.results]);
-          dispatch(addScrollLoadedFilmsAction(response.data));
+          setFilmsList(() => [...filmsList, ...response.data.results]);
+          dispatch(addPopularFilms(response.data));
           setCurrentPage((currentPage) => currentPage + 1);
-          setTotalPage(response.data.total_pages)
+          setTotalPage(response.data.total_pages);
         })
         .finally(() => setFetching(false));
     }
@@ -51,15 +84,14 @@ function MainPage() {
     return function () {
       document.removeEventListener("scroll", scrollHandler);
     };
-  }, []);
-
- 
+  }, [filmsList]);
 
   const scrollHandler = (e) => {
     if (
       e.target.documentElement.scrollHeight -
         (e.target.documentElement.scrollTop + window.innerHeight) <
-      100 && currentPage > totalPage
+        100 &&
+      currentPage < totalPage
     ) {
       setFetching(true);
     }
@@ -68,30 +100,40 @@ function MainPage() {
   return (
     <div className="mainPage">
       <Header />
-      {filmsList ? (
+      {filmsList.length ? (
         <div className="filmsBox">
-          {filmsList.map(
-            ({
-              id,
-              original_title,
-              overview,
-              poster_path,
-              original_language,
-              vote_average,
-              genre_ids,
-            }) => (
-              <Link key={id} to={`/film/${id}`} className="card_link">
-                <FilmCard
-                  original_title={original_title}
-                  overview={overview}
-                  poster_path={poster_path}
-                  original_language={original_language}
-                  vote_average={vote_average}
-                  genre_ids={genre_ids}
-                />
-              </Link>
-            )
-          )}
+          <div className="searchPanel">
+            <input
+              value={inputValue}
+              type="text"
+              onChange={(e) => setInputValue(e.target.value)}
+              placeholder="Enter film..."
+            />
+          </div>
+          <div className="filmList">
+            {filmsList.map(
+              ({
+                id,
+                original_title,
+                overview,
+                poster_path,
+                original_language,
+                vote_average,
+                genre_ids,
+              }) => (
+                  <FilmCard
+                  key={id}
+                    original_title={original_title}
+                    overview={overview}
+                    poster_path={poster_path}
+                    original_language={original_language}
+                    vote_average={vote_average}
+                    genre_ids={genre_ids}
+                    id={id}
+                  />
+              )
+            )}
+          </div>
         </div>
       ) : (
         <>Loading...</>
