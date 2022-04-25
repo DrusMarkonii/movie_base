@@ -1,12 +1,76 @@
+$bg_color_card_of_film :rgba(27, 26, 26, 0.658);
+
 .filmCard {
-    width: 180px;
-    height: 290px;
-    padding: 2px;
+    width: 270px;
+    position: relative;
+    height: 490px;
     margin: 10px;
     justify-content: center;
     border-radius: 6px;
-    background-color: rgba(27, 26, 26, 0.658);
+    background-color: $bg_color_card_of_film;
+    box-sizing: border-box;
     color: rgb(163, 163, 162);
+    .filmCard_card_link {
+        text-decoration: none;
+        color: white;
+        .filmCard_card_img{
+            width:260px;
+            border-radius: 6px;	
+        };
+        .filmCard_description_box {
+            width: 260px;
+            text-align: left;
+            padding: 0 15px;
+            .filmCard_description_title{
+                font-size: 1.3rem;
+                box-sizing: border-box;
+                font-weight: 500;
+                margin: 0 auto;
+                height: 220px;
+                
+            }
+            .filmCard_description_rate {
+                font-size: 16px;
+                margin-left:5px;
+                
+            }
+            .filmCard_genreBox {
+                display: flex;
+                flex-wrap: wrap;
+                width: 250px;
+                text-align: left;
+            }.filmCard_genreBox_item {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                font-weight: 100;
+                text-align: left;
+                font-size: 12px;
+                margin: 5px 1px;
+                padding: 0 2px;
+                border-radius: 5px;
+                background-color: rgb(56, 54, 54);
+                &:hover {
+                    transform: scale(1.1);
+                    transition: 0.3s;
+                }
+            }
+        }
+    }
+    .filmCard_favorites {
+        position: absolute;
+        left: 220px;
+        bottom: 115px;
+        &:hover {
+            transition: 0.5s;
+            transform: scale(1.2);
+        }
+    }
+
+}
+.feature_true, .feature_false {
+    width: 35px;
+    cursor: pointer;
 }
 
 .description_box {
@@ -20,17 +84,11 @@
     opacity: 0
 }
 
-.card_img {
-    width:100%;
+.filmCard_card_img{
+    width:260px;
     border-radius: 6px;	
-    background-size: cover
 }
 
-.description_box:hover {
-    transition: .7s;
-    background-color: #000;
-    opacity: .8;
-}
 
 .genreBox {
     display: flex;
@@ -51,12 +109,8 @@
     font-weight: bold;
     
 }
-.card_link {
+.filmCard_card_link {
     text-decoration: none;
     color: white
 }
 
-.add_img, .added_img {
-    width: 25px;
-    cursor: pointer
-}

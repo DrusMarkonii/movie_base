@@ -1,41 +1,121 @@
 .filmPage {
     display: flex;
     flex-wrap: wrap;
+    margin-top: 70px;
+    flex-direction: column;
     max-width: 1280px;
     width: 100%;
-    justify-content: center;
+    align-items: center;
+    // justify-content: center;
 }
 
 .filmPage_img {
-    width: 300px;
-    border-radius: 5px;
-    margin-top: 70px;
+    max-width: 350px;
+    width: 100%;
+    border-radius: 10px;
 }
 
 .filmTitle {
     display: block;
-    font-size: 1.5em;
-    margin-top: 0.83em;
-    margin-bottom: 0.83em;
+    font-size: 20px;
+    margin-top: 0.3em;
+    margin-bottom: 0.5em;
     font-weight: bold;
 }
 
-.filmOfDescriptionBox {
+.filmOfDescription {
     display: flex;
     flex-wrap: wrap;
+    width: 1280px;
     justify-content: center;
-
+    width: 100%;
+    margin-bottom: 20px;
 }
 
-.descriptionBox {
+.filmOfDescription__descriptionBox {
     display: flex;
     flex-direction: column;
+    width: 65%;
+    align-items: center;
     max-width: 500px;
     margin-left: 20px;
+    
+
 }
 
-.recommendedBox, .recommendedBox_list {
+.titleOfRecommendation {
+    margin-right: auto;
+    margin-bottom: 20px;
+    padding:5px;
+    margin-left: 20px;
+    font-size: 18px;
+    border: 2px solid black
+
+    
+}
+.recommendedBox {
     display: flex;
     flex-wrap: wrap;
+    max-width: 1280px;
+    align-items: center;
+    width: 90%;
     justify-content: center;
+}
+
+.recommendedBox_list{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1280px;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+.dataBox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 10px;
+    font-size: small;
+    p {
+        
+        text-align: start;
+        b {
+            background-color: none; 
+        }
+    }
+}
+
+.dataBox__item {
+    padding: 5px;
+    font-size: 1.2em;
+    font-weight: 400;
+
+}
+
+
+
+// .feature_true, .feature_false {
+//         width: 25px;
+//         cursor: pointer;
+// } 
+
+.favoritesBtn {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    right: 40px;
+    top: 15px;
+    font-weight: bold;
+    
+}
+
+.VideoBox {
+    width: 100%;
+    padding: 15px;
+    justify-content: center;
+    iframe {
+        width: 80%;
+        height: 200px;
+    }
+
 }

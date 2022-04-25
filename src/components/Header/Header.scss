@@ -1,7 +1,15 @@
+$color_for_active_links: rgb(236, 52, 52);
+$color_for_unActive_links: rgb(187, 184, 184);
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
 .header {
-    // position: absolute;
-    // top: 0;
-    // left: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100vw;
     height: 5vh;
     align-items: center;
@@ -11,29 +19,30 @@
   }
   
   .navbar__list {
-    display: flex;
-    width: 90%;
-    height: 100%;
-    max-width: 1080px;
-    margin: 0 auto;
-    align-items: baseline;
-    justify-content:center;
-    list-style: none;
-  }
-  
-  .navbar__list_item {
-    height: 100%;
-    margin: 0 50px;
-  }
-  
-  .navbar__list__item a {
-    color: rgb(187, 184, 184);
-    font-size: large;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .navbar__list__item a.active {
-    // width: 100px;
-    color: rgb(236, 52, 52);
-  }
+        display: flex;
+        width: 80%;
+        height: 100%;
+        max-width: 700px;
+        margin: 0 auto;
+        align-items: center;
+        justify-content:space-between;
+        list-style: none;
+        .navbar__list_item{
+            height: 100%;
+            margin: 0 50px;
+            & > a {
+                color: $color_for_unActive_links;
+                font-size: large;
+                text-decoration: none;
+                font-weight: bold;
+                &.active {
+                    color: $color_for_active_links;
+                }
+            }
+        }
+        .navbar__list_logo{
+            width: 35px;
+            cursor: pointer;
+            height: 35px;
+        }
+  } 

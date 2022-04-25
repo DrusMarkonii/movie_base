@@ -14,6 +14,9 @@ import {
 
 import FilmCard from "../FilmCard/FilmCard";
 import axios from "axios";
+import Spinner from "../Spinner/Spinner";
+import loupe from '../../assets/img/loupe.png'
+import multiply from "../../assets/img/multiply.png"
 
 function MainPage() {
   const [filmsList, setFilmsList] = useState([]);
@@ -23,7 +26,7 @@ function MainPage() {
   const [inputValue, setInputValue] = useState("");
 
   const dispatch = useDispatch();
-  console.log("local", JSON.parse(localStorage.getItem("favorites")) || []);
+  
 
   const search = async (string) => {
     if (string) {
@@ -39,9 +42,10 @@ function MainPage() {
         })
         .finally(() => setFetching(false));
     } else {
+      setCurrentPage(1)
       axios
         .get(
-          `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`
+          `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`
         )
         .then((response) => {
           setFilmsList(() => [...response.data.results]);
@@ -75,7 +79,6 @@ function MainPage() {
 
   useEffect(() => {
     let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    console.log("fav", favorites);
     if (favorites !== undefined) {
       dispatch(loadFavorites(favorites));
     }
@@ -115,7 +118,8 @@ function MainPage() {
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="Enter film..."
             />
-            <button onClick={() =>setInputValue('')}>clean</button>
+            <img src={loupe} alt="loupe" className="loupe"/>
+            <img src={multiply} alt="multiply" className="multiply" onClick={() =>setInputValue('')}/>
           </div>
           <div className="filmList">
             {filmsList.map(
@@ -143,7 +147,7 @@ function MainPage() {
           </div>
         </div>
       ) : (
-        <>Loading...</>
+        <Spinner />
       )}
     </div>
   );
