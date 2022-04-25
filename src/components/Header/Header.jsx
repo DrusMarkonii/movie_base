@@ -1,7 +1,6 @@
-import { NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import "./Header.scss";
-
 
 const navigation = [
   { id: 1, title: "Films", path: "/" },
@@ -11,13 +10,12 @@ const navigation = [
 function Header() {
   return (
     <div className="header">
-      <nav>
-        <ul className="navbar_List">
+      <nav className="navbar">
+        <ul className="navbar__list">
           {navigation.map(({ id, title, path }) => (
-            <li key={id} className="navbar__list__item">
+            <li key={id} className="navbar__list_item">
               <NavLink to={path}>{title}</NavLink>
             </li>
-    
           ))}
         </ul>
       </nav>

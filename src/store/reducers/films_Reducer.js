@@ -1,7 +1,9 @@
 import {
   ADD_POPULAR_FILMS,
-  ADD_IN_FAVORITE_FILM,
+  ADD_IN_FAVORITES,
   ADD_GENRES,
+  LOAD_FAVORITES,
+  REMOVE_FROM_FAVORITES,
   ADD_SCROLL_LOADED_FILMS,
 } from "../action-creators/filmsTypes";
 
@@ -23,16 +25,28 @@ const films_Reducer = (state = defaultStateFilms, action) => {
     case ADD_SCROLL_LOADED_FILMS: {
       return {
         ...state,
-        films:state.films.concat(action.payload),
+        films:[...state.films, action.payload],
         // films:state.films.concat(action.payload),
       };
     }
-    case ADD_IN_FAVORITE_FILM: {
+    case ADD_IN_FAVORITES: {
       return {
         ...state,
-        favoriteFilms: state.favoriteFilms.concat(action.payload),
+        favoriteFilms: [...state.favoriteFilms, action.payload],
       };
     }
+    case REMOVE_FROM_FAVORITES: {
+        return {
+          ...state,
+          favoriteFilms:state.favoriteFilms.filter(film => film.id !==  action.payload),
+        };
+      }
+      case LOAD_FAVORITES: {
+        return {
+          ...state,
+          favoriteFilms:action.payload,
+        };
+      }
     case ADD_GENRES: {
       return {
         ...state,

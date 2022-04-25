@@ -8,6 +8,8 @@ import { useDispatch } from "react-redux";
 import {
   fetchGenres,
   addPopularFilms,
+  loadFavorites,
+  addToFavoritesAction,
 } from "../../store/action-creators/filmsActions";
 
 import FilmCard from "../FilmCard/FilmCard";
@@ -21,12 +23,7 @@ function MainPage() {
   const [inputValue, setInputValue] = useState("");
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    // dispatch(fetchPopularFilms());
-    dispatch(fetchGenres());
-  }, [dispatch]);
-
+  console.log("local", JSON.parse(localStorage.getItem("favorites")) || []);
 
   const search = async (string) => {
     if (string) {
@@ -77,6 +74,15 @@ function MainPage() {
   }, [fetching]);
 
   useEffect(() => {
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    console.log("fav", favorites);
+    if (favorites !== undefined) {
+      dispatch(loadFavorites(favorites));
+    }
+    dispatch(fetchGenres());
+  }, []);
+
+  useEffect(() => {
     if (filmsList) {
       document.addEventListener("scroll", scrollHandler);
     }
@@ -109,6 +115,7 @@ function MainPage() {
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="Enter film..."
             />
+            <button onClick={() =>setInputValue('')}>clean</button>
           </div>
           <div className="filmList">
             {filmsList.map(
@@ -121,16 +128,16 @@ function MainPage() {
                 vote_average,
                 genre_ids,
               }) => (
-                  <FilmCard
+                <FilmCard
                   key={id}
-                    original_title={original_title}
-                    overview={overview}
-                    poster_path={poster_path}
-                    original_language={original_language}
-                    vote_average={vote_average}
-                    genre_ids={genre_ids}
-                    id={id}
-                  />
+                  original_title={original_title}
+                  overview={overview}
+                  poster_path={poster_path}
+                  original_language={original_language}
+                  vote_average={vote_average}
+                  genre_ids={genre_ids}
+                  id={id}
+                />
               )
             )}
           </div>

@@ -1,61 +1,81 @@
 import "./FavoritesPage.scss";
 import Header from "../Header/Header";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import FilmCard from "../FilmCard/FilmCard";
 import { useEffect, useState } from "react";
+import { loadFavorites } from "../../store/action-creators/filmsActions";
+import { IMAGE_API_PATH } from "../../service/endpoints";
+import like_add from "../../assets/img/like_add.png";
+import like_added from "../../assets/img/like_added.png";
 
 function FavoritesPage() {
-  const Films = useSelector((state) => {
-    return state.films.films;
+  const [isAdded, setIsAdded] = useState(false);
+  const [favoriteFilms, setFavoriteFilms] = useState([]);
+
+  const genres = useSelector((state) => {
+    return state.films.genres.genres;
   });
-
-  console.log(Films)
-
-  const [favoriteFilms, setFavoriteFilms] = useState(null);
-  const [isRemoved, setIsRemoved] = useState(false)
-  
-
+  // const getGenreName = (id) => {
+  //   return genres.find((genre) => genre.id === id).name;
+  // };
   useEffect(() => {
-    setFavoriteFilms(JSON.parse(localStorage.getItem("favorites")) || []);
+    let localStorageFilms = JSON.parse(localStorage.getItem("favorites")) || [];
+    setFavoriteFilms(localStorageFilms);
   }, []);
+
+  console.log(favoriteFilms);
+
+  const removeFromFavorites = (id) => {
+    let removedFilm = favoriteFilms.filter((film) => film.id !== id);
+    localStorage.setItem("favorites", JSON.stringify(removedFilm));
+    setFavoriteFilms(removedFilm);
+  };
 
   return (
     <div className="favoritesPage">
       <Header />
-      <div className="favoriteFilmsBox">
-        {Films && favoriteFilms!== null  ? (
-          <div>
-            {favoriteFilms.map(
-              ({
-                id,
-                original_title,
-                overview,
-                poster_path,
-                original_language,
-                vote_average,
-                genre_ids,
-              }) => (
-                <FilmCard
-                  key={id}
-                  original_title={original_title}
-                  overview={overview}
-                  poster_path={poster_path}
-                  original_language={original_language}
-                  vote_average={vote_average}
-                  genre_ids={genre_ids}
-                  id={id}
-                onClick={() => {
-                  console.log('2342')
-                  setIsRemoved(!isRemoved)
+      {favoriteFilms.length ? (
+        <div className="favoriteFilmsBox">
+          {favoriteFilms.map(
+            ({ poster_path, original_title, id, vote_average, genre_ids }) => (
+              <div className="favoriteCard" key={id}>
+                <img
+                  src={like_added}
+                  alt="like_added"
+                  className="added_img"
+                  onClick={() => {
+                    removeFromFavorites(id);
                   }}
                 />
-              )
-            )}
-          </div>
-        ) : (
-          <div>You can add the movie to your favorites</div>
-        )}
-      </div>
+                <Link key={id} to={`/film/${id}`} className="card_link">
+                  <div>
+                    <img
+                      className="card_img"
+                      src={`${IMAGE_API_PATH}${poster_path}`}
+                      alt={original_title}
+                      onClick={() => setIsAdded(!isAdded)}
+                    />
+                  </div>
+                  <div className="description_box">
+                    <span className="description_title">{original_title}</span>
+                    <span>Rating: {vote_average}</span>
+                    <div className="genreBox">
+                      {/* {genre_ids.map((id) => (
+                      <p key={id} className="genreBox_item">
+                        {getGenreName(id)}
+                      </p>
+                    ))} */}
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            )
+          )}
+        </div>
+      ) : (
+        <div>You can add the movie to your favorites...</div>
+      )}
     </div>
   );
 }
