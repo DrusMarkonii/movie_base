@@ -17,9 +17,9 @@ function FavoritesPage() {
   }, []);
 
   const removeFromFavorites = (id) => {
-    let removedFilm = favoriteFilms.filter((film) => film.id !== id);
-    localStorage.setItem("favorites", JSON.stringify(removedFilm));
-    setFavoriteFilms(removedFilm);
+    let newFavoriteList = favoriteFilms.filter((film) => film.id !== id);
+    localStorage.setItem("favorites", JSON.stringify(newFavoriteList));
+    setFavoriteFilms(newFavoriteList);
   };
 
   return (

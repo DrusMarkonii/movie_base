@@ -1,9 +1,8 @@
 import { useEffect, useState, useMemo } from "react";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 
 import Header from "../../components/Header/Header";
-import { API_KEY } from "../../service/endpoints";
+import { api } from "../../service/endpoints";
 import {
   fetchGenres,
   addPopularFilms,
@@ -11,9 +10,9 @@ import {
 } from "../../store/action-creators/filmsActions";
 import FilmCard from "../../components/FilmCard/FilmCard";
 import Spinner from "../../components/Spinner/Spinner";
+import UpArrows from "../../assets/img/UpArrows.png";
 import loupe from "../../assets/img/loupe.png";
 import multiply from "../../assets/img/multiply.png";
-import { DEFAULT_URL } from "../../service/endpoints";
 
 import "./MainPage.scss";
 
@@ -23,15 +22,16 @@ function MainPage() {
   const [fetching, setFetching] = useState(true);
   const [totalPage, setTotalPage] = useState(0);
   const [inputValue, setInputValue] = useState("");
+  const [isShowScrollBtn, setIsShowScrollBtn] = useState(false);
 
   const dispatch = useDispatch();
 
   useMemo(() => {
     if (fetching) {
-      axios
-        .get(
-          `${DEFAULT_URL}popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`
-        )
+      api({
+        method: "GET",
+        url: `movie/popular?page=${currentPage}`,
+      })
         .then((response) => {
           setFilmsList(() => [...filmsList, ...response.data.results]);
           dispatch(addPopularFilms(response.data));
@@ -48,7 +48,7 @@ function MainPage() {
       dispatch(loadFavorites(favorites));
     }
     dispatch(fetchGenres());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     search(inputValue);
@@ -66,10 +66,10 @@ function MainPage() {
 
   const search = async (string) => {
     if (string) {
-      await axios
-        .get(
-          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${string}&page=1&include_adult=false`
-        )
+      api({
+        method: "GET",
+        url: `search/movie?&query=${string}&page=1`,
+      })
         .then((response) => {
           setFilmsList(() => [...response.data.results]);
           dispatch(addPopularFilms(response.data));
@@ -79,8 +79,10 @@ function MainPage() {
         .finally(() => setFetching(false));
     } else {
       setCurrentPage(1);
-      axios
-        .get(`${DEFAULT_URL}popular?api_key=${API_KEY}&language=en-US&page=1`)
+      api({
+        method: "GET",
+        url: `movie/popular`,
+      })
         .then((response) => {
           setFilmsList(() => [...response.data.results]);
           dispatch(addPopularFilms(response.data));
@@ -88,7 +90,7 @@ function MainPage() {
           setTotalPage(response.data.total_pages);
         })
         .finally(() => setFetching(false));
-    }
+    };
   };
 
   const scrollHandler = (e) => {
@@ -100,13 +102,18 @@ function MainPage() {
     ) {
       setFetching(true);
     }
+    if (window.scrollY > 1200) {
+      setIsShowScrollBtn(true);
+    } else {
+      setIsShowScrollBtn(false);
+    }
   };
-
+ 
   return (
     <div className="mainPage">
       <Header />
       {filmsList.length ? (
-        <div className="filmsBox">
+        <div className="filmsBox" id="top">
           <div className="searchPanel">
             <input
               value={inputValue}
@@ -146,6 +153,20 @@ function MainPage() {
               )
             )}
           </div>
+          {isShowScrollBtn ? (
+            <>
+              <img
+                src={UpArrows}
+                alt="UpArrows"
+                className="scroll_btn"
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              />
+            </>
+          ) : (
+            <></>
+          )}
         </div>
       ) : (
         <Spinner />

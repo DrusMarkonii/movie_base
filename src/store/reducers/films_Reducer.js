@@ -53,7 +53,6 @@ const films_Reducer = (state = defaultStateFilms, action) => {
         genres: action.payload,
       };
     }
-
     default:
       return state;
   }
