@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { API_KEY } from "../../service/endpoints";
 
 import "./MainPage.scss";
@@ -11,12 +11,13 @@ import {
   loadFavorites,
   addToFavoritesAction,
 } from "../../store/action-creators/filmsActions";
+import {DEFAULT_URL} from "../../service/endpoints"
 
 import FilmCard from "../../components/FilmCard/FilmCard";
 import axios from "axios";
 import Spinner from "../../components/Spinner/Spinner";
-import loupe from '../../assets/img/loupe.png'
-import multiply from "../../assets/img/multiply.png"
+import loupe from "../../assets/img/loupe.png";
+import multiply from "../../assets/img/multiply.png";
 
 function MainPage() {
   const [filmsList, setFilmsList] = useState([]);
@@ -26,46 +27,16 @@ function MainPage() {
   const [inputValue, setInputValue] = useState("");
 
   const dispatch = useDispatch();
-  
 
-  const search = async (string) => {
-    if (string) {
-      await axios
-        .get(
-          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${string}&page=1&include_adult=false`
-        )
-        .then((response) => {
-          setFilmsList(() => [...response.data.results]);
-          dispatch(addPopularFilms(response.data));
-          setCurrentPage((currentPage) => currentPage + 1);
-          setTotalPage(response.data.total_pages);
-        })
-        .finally(() => setFetching(false));
-    } else {
-      setCurrentPage(1)
-      axios
-        .get(
-          `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`
-        )
-        .then((response) => {
-          setFilmsList(() => [...response.data.results]);
-          dispatch(addPopularFilms(response.data));
-          setCurrentPage((currentPage) => currentPage + 1);
-          setTotalPage(response.data.total_pages);
-        })
-        .finally(() => setFetching(false));
-    }
-  };
+  const getFilms = (page) => {
+    
+  }
 
-  useEffect(() => {
-    search(inputValue);
-  }, [inputValue]);
-
-  useEffect(() => {
+  useMemo(() => {
     if (fetching) {
       axios
         .get(
-          `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`
+          `${DEFAULT_URL}popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`
         )
         .then((response) => {
           setFilmsList(() => [...filmsList, ...response.data.results]);
@@ -79,21 +50,55 @@ function MainPage() {
 
   useEffect(() => {
     let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    if (favorites !== undefined) {
+    if (favorites) {
       dispatch(loadFavorites(favorites));
-    }
+    };
     dispatch(fetchGenres());
   }, []);
 
   useEffect(() => {
+    search(inputValue);
+  }, [inputValue]);
+
+  useEffect(() => {
+
     if (filmsList) {
       document.addEventListener("scroll", scrollHandler);
-    }
-
+    };
+    
     return function () {
       document.removeEventListener("scroll", scrollHandler);
     };
   }, [filmsList]);
+
+  const search = async (string) => {
+    if (string) {
+      await axios
+        .get(
+          `https://api.themoviedb.org/3/search/movie?api_key=cec84349983050a0e6e65380ebeca52a&language=en-US&query=${string}&page=1&include_adult=false`
+        )
+        .then((response) => {
+          setFilmsList(() => [...response.data.results]);
+          dispatch(addPopularFilms(response.data));
+          setCurrentPage((currentPage) => currentPage + 1);
+          setTotalPage(response.data.total_pages);
+        })
+        .finally(() => setFetching(false));
+    } else {
+      setCurrentPage(1);
+      axios
+        .get(
+          `${DEFAULT_URL}popular?api_key=${API_KEY}&language=en-US&page=1`
+        )
+        .then((response) => {
+          setFilmsList(() => [...response.data.results]);
+          dispatch(addPopularFilms(response.data));
+          setCurrentPage((currentPage) => currentPage + 1);
+          setTotalPage(response.data.total_pages);
+        })
+        .finally(() => setFetching(false));
+    };
+  };
 
   const scrollHandler = (e) => {
     if (
@@ -118,8 +123,13 @@ function MainPage() {
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="Enter film..."
             />
-            <img src={loupe} alt="loupe" className="loupe"/>
-            <img src={multiply} alt="multiply" className="multiply" onClick={() =>setInputValue('')}/>
+            <img src={loupe} alt="loupe" className="loupe" />
+            <img
+              src={multiply}
+              alt="multiply"
+              className="multiply"
+              onClick={() => setInputValue("")}
+            />
           </div>
           <div className="filmList">
             {filmsList.map(

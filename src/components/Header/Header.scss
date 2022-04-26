@@ -4,7 +4,7 @@ $color_for_unActive_links: rgb(187, 184, 184);
 * {
     padding: 0;
     margin: 0;
-}
+};
 
 .header {
     position: absolute;
@@ -16,7 +16,7 @@ $color_for_unActive_links: rgb(187, 184, 184);
     background-color: black;
     padding: 5px;
     align-items: center;
-  }
+  };
   
   .navbar__list {
         display: flex;
@@ -37,12 +37,12 @@ $color_for_unActive_links: rgb(187, 184, 184);
                 font-weight: bold;
                 &.active {
                     color: $color_for_active_links;
-                }
-            }
-        }
+                };
+            };
+        };
         .navbar__list_logo{
             width: 35px;
             cursor: pointer;
             height: 35px;
-        }
-  } 
+        };
+  };

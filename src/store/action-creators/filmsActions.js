@@ -6,7 +6,6 @@ import {
   REMOVE_FROM_FAVORITES,
   FETCH_GENRES,
   LOAD_FAVORITES,
-  ADD_SCROLL_LOADED_FILMS,
 } from "./filmsTypes";
 
 export const addToFavoritesAction = (payload) => ({

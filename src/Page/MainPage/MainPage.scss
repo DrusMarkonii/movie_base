@@ -6,9 +6,7 @@
     width: 100%;
     justify-content: center;
     margin-top: 80px;
-}
-
-
+};
 
 .searchPanel {
     display: flex;
@@ -24,7 +22,7 @@
     }
     .loupe {
         position: relative;
-        right: 30px;
+        right: 35px;
         width: 20px;
         height: 20px;
         top: 8px;
@@ -39,18 +37,13 @@
         &:hover {
             transition: 0.5;
             transform: scale(1.01);
-        }
-
-    }
-
-
-}
-
+        };
+    };
+};
 
 .filmList {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     max-width: 1000px;
-
-}
+};

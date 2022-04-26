@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const API_KEY = "cec84349983050a0e6e65380ebeca52a";
 export const IMAGE_API_PATH = "https://image.tmdb.org/t/p/original";
+export const DEFAULT_URL = "https://api.themoviedb.org/3/movie/";
 const GENRE_LIST = "https://api.themoviedb.org/3/genre/movie/list";
 const POPULAR_FILMS = "https://api.themoviedb.org/3/movie/popular";
 const DESCRIPTION_OF_FILM = "https://api.themoviedb.org/3/movie";
@@ -14,14 +15,13 @@ export const getPopularFilms = async () => {
       },
       params: {
         api_key: API_KEY,
-      }, 
+      },
     });
     return response.data;
   } catch (err) {
     console.log(err);
   }
 };
-
 
 export const getGenres = async () => {
   try {
@@ -58,7 +58,7 @@ export const getFilmOfDescription = async (id) => {
 export const getRecommendedFilms = async (id) => {
   try {
     const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/${id}/recommendations`,
+      `${DEFAULT_URL}${id}/recommendations`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -75,20 +75,20 @@ export const getRecommendedFilms = async (id) => {
 };
 
 export const getTrailerOfFilm = async (id) => {
-    try {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}/videos`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          params: {
-            api_key: API_KEY,
-          },
-        }
-      );
-      return response.data;
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  try {
+    const response = await axios.get(
+      `${DEFAULT_URL}${id}/videos`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        params: {
+          api_key: API_KEY,
+        },
+      }
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

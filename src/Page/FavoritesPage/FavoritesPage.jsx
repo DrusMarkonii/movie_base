@@ -28,7 +28,7 @@ function FavoritesPage() {
       {favoriteFilms.length ? (
         <div className="favoriteFilms">
           {favoriteFilms.map(
-            ({ poster_path, original_title, id, vote_average, genre_ids }) => (
+            ({ poster_path, original_title, id, vote_average }) => (
               <div className="favoriteCard" key={id}>
                 <Link
                   key={id}

@@ -1,11 +1,13 @@
-import MainPage from "../../Page/MainPage/MainPage";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import "./App.scss";
+import { Provider } from "react-redux";
+
+import MainPage from "../../Page/MainPage/MainPage";
 import FavoritesPage from "../../Page/FavoritesPage/FavoritesPage";
 import Header from "../Header/Header";
 import FilmPage from "../../Page/FilmPage/FilmPage";
-import { Provider } from "react-redux";
 import store from "../../store/reducers/rootReducer";
+
+import "./App.scss";
 
 function App() {
   return (

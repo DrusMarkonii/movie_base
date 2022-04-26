@@ -19,14 +19,12 @@ const films_Reducer = (state = defaultStateFilms, action) => {
       return {
         ...state,
         films: [action.payload],
-        // films:state.films.concat(action.payload),
       };
     }
     case ADD_SCROLL_LOADED_FILMS: {
       return {
         ...state,
-        films:[...state.films, action.payload],
-        // films:state.films.concat(action.payload),
+        films: [...state.films, action.payload],
       };
     }
     case ADD_IN_FAVORITES: {
@@ -36,17 +34,19 @@ const films_Reducer = (state = defaultStateFilms, action) => {
       };
     }
     case REMOVE_FROM_FAVORITES: {
-        return {
-          ...state,
-          favoriteFilms:state.favoriteFilms.filter(film => film.id !==  action.payload),
-        };
-      }
-      case LOAD_FAVORITES: {
-        return {
-          ...state,
-          favoriteFilms:action.payload,
-        };
-      }
+      return {
+        ...state,
+        favoriteFilms: state.favoriteFilms.filter(
+          (film) => film.id !== action.payload
+        ),
+      };
+    }
+    case LOAD_FAVORITES: {
+      return {
+        ...state,
+        favoriteFilms: action.payload,
+      };
+    }
     case ADD_GENRES: {
       return {
         ...state,
