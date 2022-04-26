@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 export const API_KEY = "cec84349983050a0e6e65380ebeca52a";
 export const IMAGE_API_PATH = "https://image.tmdb.org/t/p/original";
 

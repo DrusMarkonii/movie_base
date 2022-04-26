@@ -48,7 +48,7 @@ function MainPage() {
       dispatch(loadFavorites(favorites));
     }
     dispatch(fetchGenres());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     search(inputValue);

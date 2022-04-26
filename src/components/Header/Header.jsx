@@ -15,7 +15,7 @@ function Header() {
       <nav className="navbar">
         <ul className="navbar__list">
           <li className="navbar__list_logo">
-            <NavLink to={"#top"}>
+            <NavLink to={"/"}>
               <img className="navbar__list_logo" src={youtube} alt="logo" />
             </NavLink>
           </li>
