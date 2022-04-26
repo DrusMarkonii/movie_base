@@ -1,0 +1,93 @@
+$bg_color_card_of_film :rgba(27, 26, 26, 0.658);
+$font_color_card_of_film: rgb(163, 163, 162);
+
+.favoriteCard {
+    width: 260px;
+    position: relative;
+    height: 450px;
+    margin: 10px;
+    justify-content: center;
+    border-radius: 6px;
+    background-color: $bg_color_card_of_film;
+    box-sizing: border-box;
+    color: $font_color_card_of_film;
+};
+
+.favoritesPage {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+
+};
+
+.favoriteFilms {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    max-width:1000px;
+   width: 80%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 70px;
+   .filmCard_description_box {
+    width: 260px;
+    text-align: center;
+    padding: 0 15px;
+       .filmCard_description_title {
+           font-size: 20px;
+       };
+       .filmCard_description_rate {
+        font-size: 16px;
+       };
+       .filmCard_genreBox {
+            display: flex;
+            flex-wrap: wrap;
+            width: 250px;
+            text-align: left;
+            .filmCard_genreBox_item {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                font-weight: 100;
+                text-align: left;
+                font-size: 12px;
+                margin: 5px 5px;
+                padding: 1px 2px;
+                border-radius: 5px;
+                background-color: rgb(61, 56, 56);
+                &:hover {
+                    transform: scale(1.1);
+                    transition: 0.5s;
+                };
+            };
+       };
+   };
+};
+
+.filmCard_favorites {
+    position: absolute;
+    left: 210px;
+    bottom: 115px;
+    &:hover {
+        transition: 0.5s;
+        transform: scale(1.2);
+    };
+};
+
+.favorites_message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -250px;
+    margin-top:-50px;
+};
+
+.favoriteCard__feature_true {
+    width: 40px
+};
