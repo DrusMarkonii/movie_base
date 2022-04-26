@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import {
   getFilmOfDescription,
@@ -11,11 +12,11 @@ import {
   addToFavoritesAction,
   removeFromFavoritesAction,
 } from "../../store/action-creators/filmsActions";
-import FilmCard from "../../components/FilmCard/FilmCard";
 import Header from "../../components/Header/Header";
 import Spinner from "../../components/Spinner/Spinner";
 import feature_false from "../../assets/img/feature_false.png";
 import feature_true from "../../assets/img/feature_true.png";
+import RecommendCard from "../../components/RecommendCard/RecommendCard";
 
 import "./FilmPage.scss";
 
@@ -27,10 +28,11 @@ function FilmPage() {
   const [video, setVideo] = useState("");
 
   const dispatch = useDispatch();
+  const { id } = useParams();
 
   useEffect(() => {
-    setIdOfFilm(window.location.pathname.split("/")[2]);
-  }, []);
+    setIdOfFilm(id);
+  }, [id]);
 
   useEffect(() => {
     if (idOfFilm) {
@@ -38,6 +40,13 @@ function FilmPage() {
       recommendedFilms(idOfFilm);
     }
   }, [idOfFilm]);
+
+  useEffect(() => {
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    if (favorites.find((film) => film.id === +id)) {
+      setIsAdded(true);
+    }
+  }, []);
 
   const filmOfDescription = async (id) => {
     const film = await getFilmOfDescription(id);
@@ -150,8 +159,9 @@ function FilmPage() {
                   vote_average,
                   genre_ids,
                 }) => (
-                  <FilmCard
+                  <RecommendCard
                     key={id}
+                    id={id}
                     original_title={original_title}
                     overview={overview}
                     poster_path={poster_path}

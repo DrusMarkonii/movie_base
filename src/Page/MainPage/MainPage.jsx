@@ -1,23 +1,21 @@
 import { useEffect, useState, useMemo } from "react";
-import { API_KEY } from "../../service/endpoints";
-
-import "./MainPage.scss";
-import Header from "../../components/Header/Header";
-
+import axios from "axios";
 import { useDispatch } from "react-redux";
+
+import Header from "../../components/Header/Header";
+import { API_KEY } from "../../service/endpoints";
 import {
   fetchGenres,
   addPopularFilms,
   loadFavorites,
-  addToFavoritesAction,
 } from "../../store/action-creators/filmsActions";
-import {DEFAULT_URL} from "../../service/endpoints"
-
 import FilmCard from "../../components/FilmCard/FilmCard";
-import axios from "axios";
 import Spinner from "../../components/Spinner/Spinner";
 import loupe from "../../assets/img/loupe.png";
 import multiply from "../../assets/img/multiply.png";
+import { DEFAULT_URL } from "../../service/endpoints";
+
+import "./MainPage.scss";
 
 function MainPage() {
   const [filmsList, setFilmsList] = useState([]);
@@ -27,10 +25,6 @@ function MainPage() {
   const [inputValue, setInputValue] = useState("");
 
   const dispatch = useDispatch();
-
-  const getFilms = (page) => {
-    
-  }
 
   useMemo(() => {
     if (fetching) {
@@ -52,7 +46,7 @@ function MainPage() {
     let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
     if (favorites) {
       dispatch(loadFavorites(favorites));
-    };
+    }
     dispatch(fetchGenres());
   }, []);
 
@@ -61,11 +55,10 @@ function MainPage() {
   }, [inputValue]);
 
   useEffect(() => {
-
     if (filmsList) {
       document.addEventListener("scroll", scrollHandler);
-    };
-    
+    }
+
     return function () {
       document.removeEventListener("scroll", scrollHandler);
     };
@@ -75,7 +68,7 @@ function MainPage() {
     if (string) {
       await axios
         .get(
-          `https://api.themoviedb.org/3/search/movie?api_key=cec84349983050a0e6e65380ebeca52a&language=en-US&query=${string}&page=1&include_adult=false`
+          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${string}&page=1&include_adult=false`
         )
         .then((response) => {
           setFilmsList(() => [...response.data.results]);
@@ -87,9 +80,7 @@ function MainPage() {
     } else {
       setCurrentPage(1);
       axios
-        .get(
-          `${DEFAULT_URL}popular?api_key=${API_KEY}&language=en-US&page=1`
-        )
+        .get(`${DEFAULT_URL}popular?api_key=${API_KEY}&language=en-US&page=1`)
         .then((response) => {
           setFilmsList(() => [...response.data.results]);
           dispatch(addPopularFilms(response.data));
@@ -97,7 +88,7 @@ function MainPage() {
           setTotalPage(response.data.total_pages);
         })
         .finally(() => setFetching(false));
-    };
+    }
   };
 
   const scrollHandler = (e) => {

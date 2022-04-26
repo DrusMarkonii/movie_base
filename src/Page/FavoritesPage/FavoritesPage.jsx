@@ -33,17 +33,17 @@ function FavoritesPage() {
                 <Link
                   key={id}
                   to={`/film/${id}`}
-                  className="filmCard_card_link"
+                  className="favoriteCard_link"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <img
-                    className="filmCard_card_img"
+                    className="favoriteCard_img"
                     src={`${IMAGE_API_PATH}${poster_path}`}
                     alt={original_title}
                     onClick={() => setIsAdded(!isAdded)}
                   />
-                  <div className="filmCard_description_box">
-                    <span className="filmCard_description_title">
+                  <div className="favoriteCard_description_box">
+                    <span className="favoriteCard_description_title">
                       {original_title}
                     </span>
                     <img
@@ -52,12 +52,12 @@ function FavoritesPage() {
                       width={15}
                       style={{ marginLeft: 10 }}
                     />
-                    <span className="filmCard_description_rate">
+                    <span className="favoriteCard_description_rate">
                       {vote_average}
                     </span>
                   </div>
                 </Link>
-                <div className="filmCard_favorites">
+                <div className="favoriteCard_favorites">
                   <img
                     src={feature_true}
                     alt="feature_true"
