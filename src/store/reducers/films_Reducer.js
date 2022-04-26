@@ -5,14 +5,12 @@ import {
   LOAD_FAVORITES,
   REMOVE_FROM_FAVORITES,
   ADD_SCROLL_LOADED_FILMS,
-  SET_CURRENT_PAGE
 } from "../action-creators/filmsTypes";
 
 const defaultStateFilms = {
   films: [],
   favoriteFilms: [],
   genres: [],
-  currentPage: 1,
 };
 
 const films_Reducer = (state = defaultStateFilms, action) => {
@@ -55,13 +53,6 @@ const films_Reducer = (state = defaultStateFilms, action) => {
         genres: action.payload,
       };
     }
-    case SET_CURRENT_PAGE: {
-        return {
-        ...state,
-        currentPage: action.payload
-        };
-      }
-
     default:
       return state;
   }

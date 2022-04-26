@@ -6,7 +6,6 @@ import {
   REMOVE_FROM_FAVORITES,
   FETCH_GENRES,
   LOAD_FAVORITES,
-  SET_CURRENT_PAGE,
 } from "./filmsTypes";
 
 export const addToFavoritesAction = (payload) => ({
@@ -31,11 +30,6 @@ export const addGenresAction = (payload) => ({
 
 export const addPopularFilms = (payload) => ({
   type: ADD_POPULAR_FILMS,
-  payload,
-});
-
-export const setCurrentPageAction = (payload) => ({
-  type: SET_CURRENT_PAGE,
   payload,
 });
 

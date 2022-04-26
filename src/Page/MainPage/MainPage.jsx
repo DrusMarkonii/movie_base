@@ -10,6 +10,7 @@ import {
 } from "../../store/action-creators/filmsActions";
 import FilmCard from "../../components/FilmCard/FilmCard";
 import Spinner from "../../components/Spinner/Spinner";
+import UpArrows from "../../assets/img/UpArrows.png";
 import loupe from "../../assets/img/loupe.png";
 import multiply from "../../assets/img/multiply.png";
 
@@ -21,6 +22,7 @@ function MainPage() {
   const [fetching, setFetching] = useState(true);
   const [totalPage, setTotalPage] = useState(0);
   const [inputValue, setInputValue] = useState("");
+  const [isShowScrollBtn, setIsShowScrollBtn] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -62,7 +64,6 @@ function MainPage() {
     };
   }, [filmsList]);
 
-
   const search = async (string) => {
     if (string) {
       api({
@@ -89,7 +90,7 @@ function MainPage() {
           setTotalPage(response.data.total_pages);
         })
         .finally(() => setFetching(false));
-    }
+    };
   };
 
   const scrollHandler = (e) => {
@@ -101,8 +102,13 @@ function MainPage() {
     ) {
       setFetching(true);
     }
+    if (window.scrollY > 1200) {
+      setIsShowScrollBtn(true);
+    } else {
+      setIsShowScrollBtn(false);
+    }
   };
-
+ 
   return (
     <div className="mainPage">
       <Header />
@@ -147,12 +153,26 @@ function MainPage() {
               )
             )}
           </div>
+          {isShowScrollBtn ? (
+            <>
+              <img
+                src={UpArrows}
+                alt="UpArrows"
+                className="scroll_btn"
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              />
+            </>
+          ) : (
+            <></>
+          )}
         </div>
       ) : (
         <Spinner />
       )}
     </div>
   );
-};
+}
 
 export default MainPage;
