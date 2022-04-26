@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { API_KEY } from "../../service/endpoints";
 
 import "./MainPage.scss";
-import Header from "../Header/Header";
+import Header from "../../components/Header/Header";
 
 import { useDispatch } from "react-redux";
 import {
@@ -12,9 +12,9 @@ import {
   addToFavoritesAction,
 } from "../../store/action-creators/filmsActions";
 
-import FilmCard from "../FilmCard/FilmCard";
+import FilmCard from "../../components/FilmCard/FilmCard";
 import axios from "axios";
-import Spinner from "../Spinner/Spinner";
+import Spinner from "../../components/Spinner/Spinner";
 import loupe from '../../assets/img/loupe.png'
 import multiply from "../../assets/img/multiply.png"
 

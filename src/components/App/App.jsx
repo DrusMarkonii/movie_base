@@ -1,9 +1,9 @@
-import MainPage from "../MainPage/MainPage";
+import MainPage from "../../Page/MainPage/MainPage";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.scss";
-import FavoritesPage from "../FavoritesPage/FavoritesPage";
+import FavoritesPage from "../../Page/FavoritesPage/FavoritesPage";
 import Header from "../Header/Header";
-import FilmPage from "../FilmPage/FilmPage";
+import FilmPage from "../../Page/FilmPage/FilmPage";
 import { Provider } from "react-redux";
 import store from "../../store/reducers/rootReducer";
 

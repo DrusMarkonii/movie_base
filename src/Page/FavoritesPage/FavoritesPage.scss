@@ -11,7 +11,7 @@ $font_color_card_of_film: rgb(163, 163, 162);
     background-color: $bg_color_card_of_film;
     box-sizing: border-box;
     color: $font_color_card_of_film;
-}
+};
 
 .favoritesPage {
     display: flex;
@@ -22,8 +22,7 @@ $font_color_card_of_film: rgb(163, 163, 162);
     width: 100%;
     margin: 0 auto;
 
-}
-
+};
 
 .favoriteFilms {
     position: relative;
@@ -42,10 +41,10 @@ $font_color_card_of_film: rgb(163, 163, 162);
     padding: 0 15px;
        .filmCard_description_title {
            font-size: 20px;
-       }
+       };
        .filmCard_description_rate {
         font-size: 16px;
-       }
+       };
        .filmCard_genreBox {
             display: flex;
             flex-wrap: wrap;
@@ -65,40 +64,30 @@ $font_color_card_of_film: rgb(163, 163, 162);
                 &:hover {
                     transform: scale(1.1);
                     transition: 0.5s;
-                }
-            }
-       }
-   }
-}
+                };
+            };
+       };
+   };
+};
 
 .filmCard_favorites {
-    
     position: absolute;
     left: 210px;
     bottom: 115px;
     &:hover {
         transition: 0.5s;
         transform: scale(1.2);
-    }
-    
-}
+    };
+};
 
+.favorites_message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -250px;
+    margin-top:-50px;
+};
 
-// .filmCard {
-//     width: 180px;
-//     height: 290px;
-//     padding: 2px;
-//     margin: 10px;
-//     justify-content: center;
-//     border-radius: 6px;
-//     background-color: rgba(27, 26, 26, 0.658);
-//     color: rgb(163, 163, 162);
-// }
-// .card_img {
-// width:100%;
-//      border-radius: 6px;	
-//     background-size: cover
-// }
 .favoriteCard__feature_true {
     width: 40px
-}
+};

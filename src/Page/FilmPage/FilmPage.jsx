@@ -1,40 +1,52 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 import {
   getFilmOfDescription,
   getRecommendedFilms,
   getTrailerOfFilm,
+  IMAGE_API_PATH,
 } from "../../service/endpoints";
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { IMAGE_API_PATH } from "../../service/endpoints";
-import FilmCard from "../FilmCard/FilmCard";
-import Header from "../Header/Header";
-import "./FilmPage.scss";
-import Spinner from "../Spinner/Spinner";
-import feature_false from "../../assets/img/feature_false.png";
-import feature_true from "../../assets/img/feature_true.png";
 import {
   addToFavoritesAction,
   removeFromFavoritesAction,
 } from "../../store/action-creators/filmsActions";
+import FilmCard from "../../components/FilmCard/FilmCard";
+import Header from "../../components/Header/Header";
+import Spinner from "../../components/Spinner/Spinner";
+import feature_false from "../../assets/img/feature_false.png";
+import feature_true from "../../assets/img/feature_true.png";
+
+import "./FilmPage.scss";
 
 function FilmPage() {
   const [film, setFilm] = useState(null);
-  const [recommended, setRecommended] = useState([]);
+  const [recommended, setRecommended] = useState(null);
   const [idOfFilm, setIdOfFilm] = useState(null);
   const [isAdded, setIsAdded] = useState(false);
-  const [video, setVideo] = useState('')
+  const [video, setVideo] = useState("");
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    setIdOfFilm(window.location.pathname.split("/")[2]);
+  }, []);
+
+  useEffect(() => {
+    if (idOfFilm) {
+      filmOfDescription(idOfFilm);
+      recommendedFilms(idOfFilm);
+    }
+  }, [idOfFilm]);
+
   const filmOfDescription = async (id) => {
     const film = await getFilmOfDescription(id);
-    const video = await getTrailerOfFilm(id)
+    const video = await getTrailerOfFilm(id);
     setFilm(() => film);
-    setVideo(() => video.results[0].key)
+    setVideo(() => video.results[0].key);
   };
 
-  const addToFavorites = (id) => {
+  const addToFavorites = () => {
     setIsAdded(!isAdded);
     let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
     dispatch(addToFavoritesAction(film));
@@ -55,22 +67,10 @@ function FilmPage() {
     setRecommended(recommended);
   };
 
-  useEffect(() => {
-    setIdOfFilm(window.location.pathname.split("/")[2]);
-    
-  }, []);
-
-  useEffect(() => {
-    if (idOfFilm) {
-      filmOfDescription(idOfFilm);
-      recommendedFilms(idOfFilm);
-      
-    }
-  }, [idOfFilm]);
   return (
     <>
       <Header />
-      {film && idOfFilm && !recommended.length ? (
+      {film && idOfFilm && recommended ? (
         <div className="filmPage">
           <div className="filmOfDescription">
             <div className="filmOfDescription__imageBox">
@@ -80,7 +80,6 @@ function FilmPage() {
                 alt={film.title}
               />
             </div>
-
             <div className="favoritesBtn">
               {isAdded ? (
                 <img
@@ -114,10 +113,7 @@ function FilmPage() {
                 <p className="dataBox__item">
                   <b>Genre:</b>{" "}
                   {film.genres.map(({ name }) => (
-                    <i key={name}>
-                      {" "}
-                      {name}
-                    </i>
+                    <i key={name}> {name}</i>
                   ))}
                 </p>
                 <p className="dataBox__item">

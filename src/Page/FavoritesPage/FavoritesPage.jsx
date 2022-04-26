@@ -1,25 +1,19 @@
-import "./FavoritesPage.scss";
-import Header from "../Header/Header";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchGenres } from "../../store/action-creators/filmsActions";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+import Header from "../../components/Header/Header";
 import { IMAGE_API_PATH } from "../../service/endpoints";
-import feature_false from "../../assets/img/feature_false.png";
 import feature_true from "../../assets/img/feature_true.png";
-import Spinner from "../Spinner/Spinner";
+
+import "./FavoritesPage.scss";
 
 function FavoritesPage() {
   const [isAdded, setIsAdded] = useState(false);
   const [favoriteFilms, setFavoriteFilms] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
 
-  const dispatch = useDispatch();
-  
   useEffect(() => {
     let localStorageFilms = JSON.parse(localStorage.getItem("favorites")) || [];
     setFavoriteFilms(localStorageFilms);
-    setIsLoaded(() => true);
   }, []);
 
   const removeFromFavorites = (id) => {
@@ -31,8 +25,7 @@ function FavoritesPage() {
   return (
     <div className="favoritesPage">
       <Header />
-      
-      {favoriteFilms ? (
+      {favoriteFilms.length ? (
         <div className="favoriteFilms">
           {favoriteFilms.map(
             ({ poster_path, original_title, id, vote_average, genre_ids }) => (
@@ -79,7 +72,9 @@ function FavoritesPage() {
           )}
         </div>
       ) : (
-        <div>You can add the movie to your favorites...</div>
+        <div className="favorites_message">
+          You can add the movie to your favorites...
+        </div>
       )}
     </div>
   );

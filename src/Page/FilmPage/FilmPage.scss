@@ -6,42 +6,43 @@
     max-width: 1280px;
     width: 100%;
     align-items: center;
-    // justify-content: center;
-}
-
-.filmPage_img {
-    max-width: 350px;
-    width: 100%;
-    border-radius: 10px;
-}
-
-.filmTitle {
-    display: block;
-    font-size: 20px;
-    margin-top: 0.3em;
-    margin-bottom: 0.5em;
-    font-weight: bold;
-}
-
-.filmOfDescription {
-    display: flex;
-    flex-wrap: wrap;
-    width: 1280px;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.filmOfDescription__descriptionBox {
-    display: flex;
-    flex-direction: column;
-    width: 65%;
-    align-items: center;
-    max-width: 500px;
-    margin-left: 20px;
-    
-
-}
+    .filmOfDescription {
+        display: flex;
+        flex-wrap: wrap;
+        width: 1280px;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 20px;
+    };
+    .filmPage_img {
+        max-width: 350px;
+        width: 100%;
+        border-radius: 10px;
+    };
+    .favoritesBtn {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        right: 40px;
+        top: 15px;
+        font-weight: bold;  
+    };
+    .filmOfDescription__descriptionBox {
+        display: flex;
+        flex-direction: column;
+        width: 65%;
+        align-items: center;
+        max-width: 500px;
+        margin-left: 20px;
+    };
+    .filmTitle {
+        display: block;
+        font-size: 20px;
+        margin-top: 0.3em;
+        margin-bottom: 0.5em;
+        font-weight: bold;
+    }; 
+};
 
 .titleOfRecommendation {
     margin-right: auto;
@@ -69,7 +70,8 @@
     align-items: center;
     width: 100%;
     justify-content: center;
-}
+};
+
 .dataBox {
     display: flex;
     flex-direction: column;
@@ -77,37 +79,17 @@
     padding: 0 10px;
     font-size: small;
     p {
-        
         text-align: start;
         b {
             background-color: none; 
-        }
-    }
-}
-
-.dataBox__item {
-    padding: 5px;
-    font-size: 1.2em;
-    font-weight: 400;
-
-}
-
-
-
-// .feature_true, .feature_false {
-//         width: 25px;
-//         cursor: pointer;
-// } 
-
-.favoritesBtn {
-    position: relative;
-    width: 20px;
-    height: 20px;
-    right: 40px;
-    top: 15px;
-    font-weight: bold;
-    
-}
+        };
+    };
+    .dataBox__item {
+        padding: 5px;
+        font-size: 1.2em;
+        font-weight: 400;
+    };
+};
 
 .VideoBox {
     width: 100%;
@@ -116,6 +98,12 @@
     iframe {
         width: 80%;
         height: 200px;
-    }
+    };
+};
 
-}
+
+
+
+
+
+
