@@ -1,9 +1,8 @@
 import { useEffect, useState, useMemo } from "react";
-import axios from "axios";
 import { useDispatch } from "react-redux";
 
 import Header from "../../components/Header/Header";
-import { API_KEY } from "../../service/endpoints";
+import { api } from "../../service/endpoints";
 import {
   fetchGenres,
   addPopularFilms,
@@ -13,7 +12,6 @@ import FilmCard from "../../components/FilmCard/FilmCard";
 import Spinner from "../../components/Spinner/Spinner";
 import loupe from "../../assets/img/loupe.png";
 import multiply from "../../assets/img/multiply.png";
-import { DEFAULT_URL } from "../../service/endpoints";
 
 import "./MainPage.scss";
 
@@ -28,10 +26,10 @@ function MainPage() {
 
   useMemo(() => {
     if (fetching) {
-      axios
-        .get(
-          `${DEFAULT_URL}popular?api_key=${API_KEY}&language=en-US&page=${currentPage}`
-        )
+      api({
+        method: "GET",
+        url: `movie/popular?page=${currentPage}`,
+      })
         .then((response) => {
           setFilmsList(() => [...filmsList, ...response.data.results]);
           dispatch(addPopularFilms(response.data));
@@ -64,12 +62,13 @@ function MainPage() {
     };
   }, [filmsList]);
 
+
   const search = async (string) => {
     if (string) {
-      await axios
-        .get(
-          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${string}&page=1&include_adult=false`
-        )
+      api({
+        method: "GET",
+        url: `search/movie?&query=${string}&page=1`,
+      })
         .then((response) => {
           setFilmsList(() => [...response.data.results]);
           dispatch(addPopularFilms(response.data));
@@ -79,8 +78,10 @@ function MainPage() {
         .finally(() => setFetching(false));
     } else {
       setCurrentPage(1);
-      axios
-        .get(`${DEFAULT_URL}popular?api_key=${API_KEY}&language=en-US&page=1`)
+      api({
+        method: "GET",
+        url: `movie/popular`,
+      })
         .then((response) => {
           setFilmsList(() => [...response.data.results]);
           dispatch(addPopularFilms(response.data));
@@ -106,7 +107,7 @@ function MainPage() {
     <div className="mainPage">
       <Header />
       {filmsList.length ? (
-        <div className="filmsBox">
+        <div className="filmsBox" id="top">
           <div className="searchPanel">
             <input
               value={inputValue}
@@ -152,6 +153,6 @@ function MainPage() {
       )}
     </div>
   );
-}
+};
 
 export default MainPage;

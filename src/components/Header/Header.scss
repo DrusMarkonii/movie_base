@@ -7,11 +7,12 @@ $color_for_unActive_links: rgb(187, 184, 184);
 };
 
 .header {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 5vh;
+    z-index: 2;
     align-items: center;
     background-color: black;
     padding: 5px;

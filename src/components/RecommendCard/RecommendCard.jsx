@@ -6,7 +6,6 @@ import feature_true from "../../assets/img/feature_true.png";
 
 import "./RecommendCard.scss";
 
-
 export default function RecommendCard({
   poster_path,
   original_title,
@@ -37,7 +36,7 @@ export default function RecommendCard({
             src={feature_true}
             alt="rate"
             width={15}
-            style={{ marginLeft: 10 }}
+            style={{ marginLeft: 10}}
           />
           <span className="RecommendCard_description_rate">{vote_average}</span>
         </div>

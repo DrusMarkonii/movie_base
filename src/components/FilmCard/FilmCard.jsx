@@ -22,15 +22,16 @@ function FilmCard({
   const [isAdded, setIsAdded] = useState(false);
   const dispatch = useDispatch();
 
+  const genres = useSelector((state) => {
+    return state.films.genres.genres;
+  });
+
   useEffect(() => {
     if (favoriteFilms.find((film) => film.id === id)) {
       setIsAdded(true);
     }
   }, []);
 
-  const genres = useSelector((state) => {
-    return state.films.genres.genres;
-  });
 
   const getGenreName = (id) => {
     return genres.find((genre) => genre.id === id).name;
@@ -44,7 +45,7 @@ function FilmCard({
     setIsAdded(!isAdded);
     const film = { poster_path, original_title, id, vote_average, genre_ids };
     let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    dispatch(addToFavoritesAction(film));
+    // dispatch(addToFavoritesAction(film));
     favorites.push(film);
     localStorage.setItem("favorites", JSON.stringify(favorites));
   };

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import {
@@ -8,10 +7,6 @@ import {
   getTrailerOfFilm,
   IMAGE_API_PATH,
 } from "../../service/endpoints";
-import {
-  addToFavoritesAction,
-  removeFromFavoritesAction,
-} from "../../store/action-creators/filmsActions";
 import Header from "../../components/Header/Header";
 import Spinner from "../../components/Spinner/Spinner";
 import feature_false from "../../assets/img/feature_false.png";
@@ -27,7 +22,6 @@ function FilmPage() {
   const [isAdded, setIsAdded] = useState(false);
   const [video, setVideo] = useState("");
 
-  const dispatch = useDispatch();
   const { id } = useParams();
 
   useEffect(() => {
@@ -43,7 +37,7 @@ function FilmPage() {
 
   useEffect(() => {
     let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    if (favorites.find((film) => film.id === +id)) {
+    if (favorites.find((film) => film.id === +idOfFilm)) {
       setIsAdded(true);
     }
   }, []);
@@ -58,7 +52,6 @@ function FilmPage() {
   const addToFavorites = () => {
     setIsAdded(!isAdded);
     let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    dispatch(addToFavoritesAction(film));
     favorites.push(film);
     localStorage.setItem("favorites", JSON.stringify(favorites));
   };
@@ -66,7 +59,6 @@ function FilmPage() {
   const removeFromFavorites = (id) => {
     setIsAdded(!isAdded);
     let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    dispatch(removeFromFavoritesAction(id));
     favorites = favorites.filter((film) => film.id !== id);
     localStorage.setItem("favorites", JSON.stringify(favorites));
   };

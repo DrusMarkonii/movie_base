@@ -22,14 +22,14 @@ $bg_color_card_of_film :rgba(27, 26, 26, 0.658);
             text-align: left;
             padding: 0 15px;
             .RecommendCard_description_title{
-                font-size: 1.3rem;
+                font-size: 20px;
                 box-sizing: border-box;
                 font-weight: 500;
                 margin: 0 auto;
                 height: 220px; 
             };
-            .fRecommendCard_description_rate {
-                font-size: 16px;
+            .RecommendCard_description_rate {
+                font-size: 15px;
                 margin-left:5px;
             };
             .RecommendCard_genreBox {
