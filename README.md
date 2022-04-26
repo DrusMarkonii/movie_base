@@ -1,12 +1,11 @@
 # Deploy https://metflix-try.netlify.app/ 
 
 This application, includes functions: 
--viewing popular movies, 
--searching according to the entered text, 
--viewing detailed information about the movie, 
--the ability to view the trailer. 
+viewing popular movies, 
+searching according to the entered text, 
+viewing detailed information about the movie,the ability to view the trailer. 
 
-For the purpose to view a large amount of data, there is an infinity scroll
+For the purpose to view a large amount of data, there is an infinity scroll.
 
 
 ## Getting Started with Create React App
