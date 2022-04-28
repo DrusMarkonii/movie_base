@@ -35,8 +35,7 @@ export default function RecommendCard({
           <img
             src={feature_true}
             alt="rate"
-            width={15}
-            style={{ marginLeft: 10}}
+            className="recommendCard_rate"
           />
           <span className="RecommendCard_description_rate">{vote_average}</span>
         </div>

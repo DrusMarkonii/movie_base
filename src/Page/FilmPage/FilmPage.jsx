@@ -30,8 +30,12 @@ function FilmPage() {
 
   useEffect(() => {
     if (idOfFilm) {
-      filmOfDescription(idOfFilm);
-      recommendedFilms(idOfFilm);
+      try {
+        filmOfDescription(idOfFilm);
+        recommendedFilms(idOfFilm);
+      } catch (err) {
+        console.log(err);
+      }
     }
   }, [idOfFilm]);
 
@@ -46,7 +50,9 @@ function FilmPage() {
     const film = await getFilmOfDescription(id);
     const video = await getTrailerOfFilm(id);
     setFilm(() => film);
-    setVideo(() => video.results[0].key);
+    if (video.results[0].key) {
+      setVideo(() => video.results[0].key);
+    }
   };
 
   const addToFavorites = () => {
@@ -129,7 +135,7 @@ function FilmPage() {
               </div>
               <div className="VideoBox">
                 <iframe
-                  src={`https://www.youtube.com/embed/${video}`}
+                  src={`https://www.youtube.com/embed/${video ? video : ""}`}
                   frameBorder="0"
                   allow="autoplay; encrypted-media"
                   allowFullScreen

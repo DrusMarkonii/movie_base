@@ -75,9 +75,8 @@ function FilmCard({
             <span className="filmCard_description_title">{original_title}</span>
             <img
               src={feature_true}
+              className='filmCard_rate'
               alt="rate"
-              width={15}
-              style={{ marginLeft: 10 }}
             />
             <span className="filmCard_description_rate">{vote_average}</span>
             <div className="filmCard_genreBox">

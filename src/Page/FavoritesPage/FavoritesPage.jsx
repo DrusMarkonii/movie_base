@@ -49,8 +49,7 @@ function FavoritesPage() {
                     <img
                       src={feature_true}
                       alt="rate"
-                      width={15}
-                      style={{ marginLeft: 10 }}
+                      className="rateBtn"
                     />
                     <span className="favoriteCard_description_rate">
                       {vote_average}

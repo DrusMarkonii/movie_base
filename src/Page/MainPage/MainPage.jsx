@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import Header from "../../components/Header/Header";
@@ -26,7 +26,7 @@ function MainPage() {
 
   const dispatch = useDispatch();
 
-  useMemo(() => {
+  useEffect(() => {
     if (fetching) {
       api({
         method: "GET",
@@ -124,7 +124,7 @@ function MainPage() {
             <img src={loupe} alt="loupe" className="loupe" />
             <img
               src={multiply}
-              alt="multiply"
+              alt="clear_input_field"
               className="multiply"
               onClick={() => setInputValue("")}
             />
@@ -157,7 +157,7 @@ function MainPage() {
             <>
               <img
                 src={UpArrows}
-                alt="UpArrows"
+                alt="go_to_up"
                 className="scroll_btn"
                 onClick={() => {
                   window.scrollTo({ top: 0, behavior: "smooth" });
